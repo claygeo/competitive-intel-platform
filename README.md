@@ -64,11 +64,11 @@ The team went from 6 spreadsheets and 2-week turnarounds to one dashboard with s
 │  ┌───────────────────┐   ┌───────────────────────────────┐    │
 │  │ Category          │   │ Brand Alias Engine            │    │
 │  │ Normalizer        │   │                               │    │
-│  │                   │   │ "Select" ─┐                   │    │
+│  │                   │   │ "Select"       ─┐             │    │
 │  │ "Edibles"    ─┐   │   │ "SELECT ELITE" ─┤→ Select     │    │
-│  │ "Edibles -    │   │   │ "Select Elite"  ─┘            │    │
+│  │ "Edibles -    │   │   │ "Select Elite" ─┘             │    │
 │  │  Gummies" ────┤→  │   │                               │    │
-│  │ "Gummy"      │    │   │ Resolves 500+ brands across   │    │
+│  │ "Gummy"       │   │   │ Resolves 500+ brands across   │    │
 │  │ "Food"  ──────┘   │   │ inconsistent naming schemes   │    │
 │  │                   │   │                               │    │
 │  │ Maps 50+ naming   │   └───────────────────────────────┘    │
