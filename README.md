@@ -33,63 +33,63 @@ The team went from 6 spreadsheets and 2-week turnarounds to one dashboard with s
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    JOB QUEUE (BullMQ + Redis)                │
+│                    JOB QUEUE (BullMQ + Redis)               │
 │                                                             │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐       │
-│  │ Chain 1 │  │ Chain 2 │  │ Chain 3 │  │ Chain N │  ...   │
-│  │  Job    │  │  Job    │  │  Job    │  │  Job    │       │
-│  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘       │
-└───────┼────────────┼────────────┼────────────┼─────────────┘
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐         │
+│  │ Chain 1 │  │ Chain 2 │  │ Chain 3 │  │ Chain N │  ...    │
+│  │  Job    │  │  Job    │  │  Job    │  │  Job    │         │
+│  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘         │
+└───────┼────────────┼────────────┼────────────┼──────────────┘
         │            │            │            │
         ▼            ▼            ▼            ▼
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    SCRAPER ENGINE                            │
-│                                                             │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐    │
-│  │  REST Client  │ │GraphQL Client│ │ Algolia Client    │    │
-│  │  (Platform A) │ │ (Platform B) │ │ (Platform C)      │    │
-│  └──────┬───────┘ └──────┬───────┘ └────────┬──────────┘    │
+│                                                              │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐      │
+│  │  REST Client  │ │GraphQL Client│ │ Algolia Client   │     │
+│  │  (Platform A) │ │ (Platform B) │ │ (Platform C)     │     │
+│  └──────┬───────┘ └──────┬───────┘ └────────┬──────────┘     │
 │         │                │                   │               │
 │         ▼                ▼                   ▼               │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │              Playwright Browser Pool                  │    │
-│  │     (Session handling, Cloudflare bypass, cookies)    │    │
-│  └─────────────────────────┬───────────────────────────┘    │
-└────────────────────────────┼────────────────────────────────┘
+│  ┌─────────────────────────────────────────────────────┐     │
+│  │              Playwright Browser Pool                │     │
+│  │     (Session handling, Cloudflare bypass, cookies)  │     │
+│  └─────────────────────────┬───────────────────────────┘     │
+└────────────────────────────┼─────────────────────────────────┘
+                             │
+                             ▼
+┌───────────────────────────────────────────────────────────────┐
+│                  DATA TRANSFORMATION LAYER                    │
+│                                                               │
+│  ┌───────────────────┐   ┌───────────────────────────────┐    │
+│  │ Category          │   │ Brand Alias Engine            │    │
+│  │ Normalizer        │   │                               │    │
+│  │                   │   │ "Select" ─┐                   │    │
+│  │ "Edibles"    ─┐   │   │ "SELECT ELITE" ─┤→ Select     │    │
+│  │ "Edibles -    │   │   │ "Select Elite"  ─┘            │    │
+│  │  Gummies" ────┤→  │   │                               │    │
+│  │ "Gummy"      │    │   │ Resolves 500+ brands across   │    │
+│  │ "Food"  ──────┘   │   │ inconsistent naming schemes   │    │
+│  │                   │   │                               │    │
+│  │ Maps 50+ naming   │   └───────────────────────────────┘    │
+│  │ variations into   │                                        │
+│  │ unified categories│  ┌───────────────────────────────┐     │
+│  └───────────────────┘  │ Price Calculator              │     │
+│                         │ Tax normalization, member vs  │     │
+│                         │ regular pricing, unit pricing │     │
+│                         └───────────────────────────────┘     │
+└────────────────────────────┬──────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  DATA TRANSFORMATION LAYER                   │
-│                                                             │
-│  ┌──────────────────┐  ┌──────────────────────────────┐    │
-│  │ Category          │  │ Brand Alias Engine            │    │
-│  │ Normalizer        │  │                               │    │
-│  │                   │  │ "Select" ─┐                   │    │
-│  │ "Edibles"    ─┐   │  │ "SELECT ELITE" ─┤→ Select    │    │
-│  │ "Edibles -    │   │  │ "Select Elite"  ─┘            │    │
-│  │  Gummies" ────┤→  │  │                               │    │
-│  │ "Gummy"      │   │  │ Resolves 500+ brands across   │    │
-│  │ "Food"  ──────┘   │  │ inconsistent naming schemes   │    │
-│  │                   │  │                               │    │
-│  │ Maps 50+ naming   │  └──────────────────────────────┘    │
-│  │ variations into   │                                      │
-│  │ unified categories│  ┌──────────────────────────────┐    │
-│  └──────────────────┘  │ Price Calculator              │    │
-│                         │ Tax normalization, member vs  │    │
-│                         │ regular pricing, unit pricing │    │
-│                         └──────────────────────────────┘    │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   DATABASE (Supabase / PostgreSQL)           │
+│                   DATABASE (Supabase / PostgreSQL)          │
 │                                                             │
 │  Products │ Brands │ Categories │ Price History │ Chains    │
 └────────────────────────────┬────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    DASHBOARD (Next.js)                       │
+│                    DASHBOARD (Next.js)                      │
 │                                                             │
 │  Real-time competitive pricing views │ Queue monitoring     │
 │  Cross-chain comparison tools        │ Job status tracking  │
