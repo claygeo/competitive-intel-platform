@@ -45,9 +45,9 @@ The team went from 6 spreadsheets and 2-week turnarounds to one dashboard with s
 ┌──────────────────────────────────────────────────────────────┐
 │                    SCRAPER ENGINE                            │
 │                                                              │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐      │
-│  │  REST Client  │ │GraphQL Client│ │ Algolia Client   │     │
-│  │  (Platform A) │ │ (Platform B) │ │ (Platform C)     │     │
+│  ┌──────────────┐ ┌──────────────┐ ┌───────────────────┐     │
+│  │  REST Client │ │GraphQL Client│ │ Algolia Client    │     │
+│  │  (Platform A │ │ (Platform B) │ │ (Platform C)      │     │
 │  └──────┬───────┘ └──────┬───────┘ └────────┬──────────┘     │
 │         │                │                   │               │
 │         ▼                ▼                   ▼               │
