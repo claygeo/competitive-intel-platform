@@ -8,7 +8,7 @@ A production data engineering system that automates competitive pricing analysis
 
 ## The Problem
 
-My pricing team was manually visiting 25+ competitor websites, copying product names and prices into spreadsheets, and comparing them side by side. For every state. Every two weeks. Six separate spreadsheets, no normalization, no consistency. By the time the analysis was done, half the data was already stale.
+The pricing team was manually visiting 25+ competitor websites, copying product names and prices into spreadsheets, and comparing them side by side. For every state. Every two weeks. Six separate spreadsheets, no normalization, no consistency. By the time the analysis was done, half the data was already stale.
 
 ## What I Built
 
